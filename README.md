@@ -34,7 +34,7 @@ The system is divided into a **Hub** and several **Spokes** to ensure scalabilit
 
 1. **Clone the repo:**
    ```bash
-   git clone [your-link]
+   git clone git@github.com:akziyaZH/Microservices-Project-CS362.git
    ```
 2. **Install dependencies:**
     ```
