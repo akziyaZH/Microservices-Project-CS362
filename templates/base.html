@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <title>{% block title %}{% endblock %} Travel Hub</title>
+    {% endblock %}
+</head>
+<nav class="global">
+    <h3><a href="/base">Home</a>
+    <a href="/calendar">Calendar</a>
+    <a href="/todo">What To Do</a>
+    <a href="/information">Information</a>
+    <a href="/contact">Contact</a></h3>
+</nav>
+
+{% block header %}
+<header>
+   
+</header>
+{% endblock header %}
+
+<body>
+    <section class="title">
+        <h1>Travel Hub</h1>
+        <h3>Everything you need to stay prepared</h3>
+        <h3>for your next trip! Save your travel dates and</h3>
+        <h3>create a list of places to visit! </h3>
+    </section>
+    <div id="content">{% block content %}{% endblock %}</div>
+    
+    <section class="footer">
+        {% block footer %}
+        <footer>
+        <h4>&copy; Copyright 2024 by Akziya Zhakupova.</h4>
+        </footer>
+        {% endblock %}
+    </section>
+</body>
+</html>

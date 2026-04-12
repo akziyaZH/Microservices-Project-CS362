@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="content-wider">
+    <h2>Find information</h2>
+    <article class="article-list">
+        <h3>Get Address</h3>
+            <form  id="getAddress" method="POST" action="/location">
+                <label for="address" class="required">Name of a Place</label>
+                <input type="text" id="address" name="address" required>
+                <div class="position2">
+                    <input class="btn" type="submit" name="Get_Address_Eng" value="&#11157 Address in English">
+                    <input class="btn" type="submit" name="Get_Address_Local" value="&#11157 Address in Local">
+                </div>
+                <div class="position3">
+                <h4>Address:</h4>
+                    <p>               
+                    {% for address in addresses.splitlines() %}
+                       {{ address }}
+                    {% endfor %}
+                    </p>
+                </div>
+            </form>
+    </article>
+
+
+    <article class="article-list">
+        <h3>Get Weather</h3>
+            <form  id="getWeather" method="POST" action="/weather">
+                <label for="weather" class="required">Name of a City</label>
+                <input type="text" id="weather" name="weather" required>
+                <div class="position2">
+                    <input class="btn" type="submit" name="Get_Weather_Forecast" value="&#11157 Weather Forecast">
+                </div>
+                <div class="position3">
+                <h4>Weather information:</h4>
+                    <p>               
+                    {% for weather in weathers.splitlines() %}
+                    <p>
+                       {{ weather }}
+                    </p>
+                    {% endfor %}
+                    </p>
+                </div>
+            </form>
+    </article>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script src='js/moment.min.js'></script>
+<script src='js/jquery.min.js'></script>
+<script src='js/fullcalendar.min.js'></script>
+
+<section class="content-wider">
+    <h2>Your Calendar</h2>
+    <div class="position-calendar">      
+        <input class="btn" type="button" name ="add" value="List View" onclick="location.href='calendar2';">
+    </div>
+    <article class="article-list">
+        <form class="form" action="/calendar" method="POST">
+        
+        <details>
+            <summary> <img src='/static/img/add-button.png' alt='Button for add' width='21' >Add Travel Dates</summary>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><label for="city"  class="required">Where are you travelling?</label></td>
+                            <td><input type="text" id="city" name="city" placeholder="city or country" required onkeyup=handleInput(data)></td>
+                        </tr>
+                        <tr>
+                            <td><label for="depart">Date of Leaving:</label></td>
+                            <td><input type="date" id="depart" name="depart" required onkeyup=handleInput(data)></td>
+                        </tr>             
+                        <tr>
+                            <td><label for="arrive">Date of Coming Back:</label></td>
+                            <td><input type="date" id="arrive" name="arrive" required onkeyup=handleInput(data)></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="position">
+                    <input class="btn" type="submit" value="&#11157 Submit" onclick=submitData()>
+                </div>            
+        </details>
+        </form>
+        <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            contentHeight: "auto",
+            events: [
+                    {
+                    title: 'Japan',
+                    allDay : true,
+                    start: '2024-11-04',
+                    end: '2024-11-09'
+                    // extendedProps: {
+                    //     status: 'done'
+                    // }
+                    },
+                    {
+                    title: 'UK',
+                    allDay : true,
+                    start: '2024-12-23',
+                    end: '2024-12-27',
+                    backgroundColor: 'green',
+                    borderColor: 'green'
+                    }
+                ]
+            });
+                calendar.render();
+            });
+
+
+        </script>
+        
+        
+    <div id='calendar'></div>
+    </article>
+    
+  
+</section>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="content">
+        <h2>Information from Wikipedia</h2>
+        <article class="article-list">
+            <p>
+            {% for info in infos.splitlines() %}
+                {{ info }}
+            {% endfor %}
+            </p>
+
+            {% for photo in photos.splitlines() %}
+                <img src='{{ photo }}' alt="No image" width='540'>
+                
+            {% endfor %}
+        </article>
+    </section>
+    
+{% endblock %}

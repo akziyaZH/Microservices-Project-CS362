@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="content-wider">
+    <h2>Add Place/Activity to your list</h2>
+    <article class="article-list">
+        <form class="form" id="addPlace" method="POST" action="/todo-add">
+            <br><span style="color: red;">*</span> is required field.</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="place"  class="required">Place/Activity:</label></td>
+                    <td><input type="text" id="place" name="place" placeholder="name of the place to visit" required></td>
+                </tr>
+                <tr>
+                    <td><label for="info">Additional Notes:</label></td>
+                    <td><input type="textarea" id="info" name="info" placeholder="address, time etc"></td>
+                </tr>             
+            </tbody>
+        </table>
+    </article>
+        <div class="position">
+        <input class="btn" type="submit" name="Add_Place" value="&#11157 Submit">
+        <input class="btn" type="button" name ="Cancel" value="&#8855 Cancel" onclick="location.href='todo';">
+        </div>
+        </form>
+</section>
+
+{% endblock %}
