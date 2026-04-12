@@ -1,0 +1,65 @@
+<!-- <a href="https://www.flaticon.com/free-icons/add" title="add icons">Add icons created by inkubators - Flaticon</a> -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="content-wider">
+    <h2>Your wishlist</h2>
+    <article class="article-list">
+        <button class="btn" name ="add" onclick="location.href='todo-add';">
+            <img src='/static/img/add-button.png' alt='Button for add' width='21' > 
+            ADD
+        </button>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Place/Activity</th>
+                    <th></th>
+                    <th></th>
+                    <th>Additional Notes:</th>
+                </tr>
+
+                {% for value in data %}
+                <tr>
+                    <td> {{ value['place'] }}</td>
+                    <td>
+                        <a href="/update/{{ value['_id'] }}"><button class="btn-small" type="submit">edit</button></a>
+                    </td>
+                    <td>
+                        <form method='POST' action="{{ url_for('delete', id=value['_id']) }}" >
+                            <input class="btn-small" type="submit" value="delete"
+                                onclick="return confirm('Are you sure you want to delete this place? This action can not be undone.')">
+                        </form>
+                    </td>
+                    <td>
+                        <details>
+                            <summary> more</summary>
+                            <p>{{ value['info'] }}</p>
+                          </details>
+                    </td>
+                    <td>
+                        <a href="/wiki-place/{{ value['_id'] }}"><button class="btn-small" type="submit">WIKI</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </article>
+
+    <div class="position">
+        <form method='POST' action="{{ url_for('delete_all') }}" >
+            <input class="btn" type="submit" value="&#128465 delete all"
+                onclick="return confirm('Are you sure you want to delete whole list? This action can not be undone.')">
+        </form>
+
+        <form method="POST" action="/generate_csv">
+            <input class="btn" type="submit" value="Download CSV"
+                onclick="return confirm('Do you want to generate and download CSV file of your list?')"> 
+        </form>
+    </div>
+</section>
+
+{% endblock %}
