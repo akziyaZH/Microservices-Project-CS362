@@ -1,0 +1,266 @@
+/*   ----- Imports  -----  */
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;700&family=Nothing+You+Could+Do&family=Ovo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;700&family=Nothing+You+Could+Do&display=swap');
+
+
+/*   ----- Variables  -----  */
+:root {
+  --darkBrown: rgb(56,32,1);
+  --beige: rgb(242,196,141);
+  --beigeT: rgba(242,196,141,.7);
+  --lightGray: rgb(215,208,208,0.5);
+  --sectionGray: rgb(217,217,217);
+  --noColor: rgb(0,0,0,0.1);
+  --pinkish: rgb(242,136,136);
+}
+
+body {
+  background-image: URL(img/background_photo.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top-left;
+
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  max-width: 80%;
+
+  line-height: 1.2;
+}
+
+/*  ----- Page layout blocks -----  */
+header, main, footer {
+  padding: 0%;
+  margin: 0% auto;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+header, footer {
+  text-align: center;
+  h1 {
+      font-size: 1.3em;
+      color: white;
+      font-family: "Nothing You Could Do", cursive;
+  }
+}
+
+header {
+  /* width: 78px; */
+  height: 48px;
+  padding-bottom: 1%;
+}
+
+main {
+  display: block;
+}
+section {
+  float: right;
+  width: 50%;
+  height: auto 560px;
+  padding: 3%;
+  h2 {color: var(--blue);}
+  h2, h3 {font:bold; text-align: center}
+}
+.title {
+  float: left;
+  width: 37%;
+  height: 547px;
+  text-align: center;
+  padding-top: 50px;
+  h1 {
+    font-size: 83px;
+    padding-bottom: 0%;
+    margin-bottom: 5%;
+    }
+  h3 {
+    text-align: end;
+  }
+}
+.content {
+  background-color: var(--lightGray);
+  h2 {
+    color: black;
+    padding-bottom: 8%;
+  }
+  }
+
+.content-wider {
+  background-color: var(--lightGray);
+  h2 {padding-bottom: 3%;}
+}
+
+.footer {
+  width: 70%;
+  padding: 10px;
+  height: 50px;
+}
+
+article {
+  padding: 20px;
+  width: 80%;
+  margin-left: 6%;
+  background-color: var(--sectionGray);
+  border: 2px var(--blue);
+  margin-top: 2%;
+}
+.article-list {
+  margin-top: 2%;
+  width:90%;
+  margin-left: 1.5%;
+}
+
+div {}
+aside {}
+
+footer {
+  height: 50px;
+  padding: 1.5%;
+  padding-left: 10%;
+}
+footer p {font-family: "Ovo", serif; color: white;}
+
+/*  ----- Navigation ----- Override text links for navigation only.  */
+.global {
+  text-align: right;
+  margin-top: 0.5%;
+  padding-top: 1%;
+}
+.global a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  padding-left: 3%;
+  padding-right: 3%;
+  width: 60px;
+}
+.global a:hover {
+  color: white;
+}
+
+/*  -----  Typography  ----- */
+p {font-family: "Ovo", serif; color: var(--darkBrown);}
+ol, ul, dl {font-family: "Ovo", serif;}
+li {font-family: "Ovo", serif;}
+
+
+h2, h3, h4, h5, h6 {font-family: "Ovo", serif; color: white;}
+h1 {font-family: "Nothing You Could Do", cursive; color: white;}
+
+/*  ----- Table ----- */
+table {
+  font-family: "Ovo", serif;
+  padding: 1%;
+  margin: 1%;
+  table-layout: auto;
+  border-collapse: collapse;
+
+}
+tr, td {
+  border: 1px solid var(--darkBrown);
+  }
+
+th, td {
+      padding: 15px;
+      }
+
+/*  ----- Form ----- */
+form {
+  /* border: 1px solid var(--darkBrown); */
+  margin-bottom: 4%;
+  padding: 2%;
+  width: 100%;
+}
+.form {
+  padding-left: 15%;
+}
+
+label {
+  display: block;
+  margin-top: 1%;
+}
+.btn {
+  background-color: var(--pinkish);
+  color: var(--darkBrown);
+  font-weight: 700;
+  padding: 2%;
+  border-radius: 5px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.position {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+.position2 {
+  display: flex;
+  flex-direction: row;
+
+}
+.position3 {
+  background-color: var(--lightPeach);
+
+}
+.img-position {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.position-calendar {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.btn:hover {
+  background-color: var(--sectionGray);
+  color: var(--pinkish) ;
+}
+.btn-add {
+  background-color: var(--pinkish);
+  color: var(--darkBrown);
+  padding: 2%;
+  border-radius: 5px;
+}
+.btn-small {
+  color: var(--darkBrown);
+  /* padding: 3%; */
+}
+.btn, input, textarea, select {
+  font-family: "Ovo", serif;
+  padding-top: 1%;
+  padding-left: 2%;
+  font-size: 100%;
+  align-content: center;
+}
+
+input {
+  padding: 1.5%;
+  margin: 1%;
+}
+select {
+  color: var(--darkBrown);
+  padding: 1%;
+}
+
+textarea {
+  width: 85%;
+}
+
+*:required {
+  border: 2px solid green;
+}
+label.required:after {
+  content: " *";
+  color: red;
+  display: inline;
+}
+*::placeholder {
+  color: var(--sectionGray);
+  font-size: 90%;
+}
+:focus {
+  background-color: var(--lightPeach);
+}
