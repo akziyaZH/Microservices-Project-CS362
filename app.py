@@ -1,29 +1,10 @@
 from flask import Flask, render_template, redirect, request, url_for, send_file
 import os
-from dotenv import load_dotenv
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from bson.objectid import ObjectId
+from database import get_all_items, add_item, delete_item, delete_collection, update_item, get_item_by_id
 import zmq
 import time
 
-load_dotenv()
-
-uri = os.getenv("MONGO_URI")
-print(f"DEBUG: My URI is: {uri}")
 app = Flask(__name__)
-client = MongoClient(uri, server_api=ServerApi('1'))
-
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
-db = client['cs361']
-collection = db['travel_hub']
-collection2 = db['travel_dates']
 
 
 @app.route('/')
@@ -38,9 +19,7 @@ def home():
 
 @app.route('/todo', methods=('GET', 'POST'))
 def todo():
-    # place = request.args.get('place', None)
-    # info = request.args.get('info', None)
-    data = collection.find()
+    data = get_all_items()
     return render_template("todo.html", data=data)
 
 
@@ -50,22 +29,25 @@ def add():
         if request.form.get('Add_Place'):
             place = request.form['place']
             info = request.form['info']
-            collection.insert_one({'place': place, 'info': info})
-            print("Data added to database")
-            data = collection.find()
+            add_item(place, info)
+
+            data = get_all_items()
+
             return redirect(url_for('todo', data=data))
     return render_template("todo-add.html")
 
 
 @app.route('/update/<string:id>', methods=('GET', 'POST'))
 def update(id):
-    data = collection.find_one({"_id": ObjectId(id)})
+    data = get_item_by_id(id)
     print(f"first data is {data}")
     if request.method == 'POST':
         place = request.values.get("place")
         info = request.values.get("info")
-        collection.update_one({"_id": ObjectId(id)}, {"$set": {"place": place, "info": info}})
-        data2 = collection.find_one({"_id": ObjectId(id)})
+
+        update_item(id, place, info)
+
+        data2 = get_item_by_id(id)
         print(f"updated data is {data2}")
         return redirect(url_for('todo'))
     return render_template('update.html')
@@ -73,25 +55,16 @@ def update(id):
 
 @app.post('/<id>/delete/')
 def delete(id):
-    collection.delete_one({"_id": ObjectId(id)})
+    delete_item(id)
     return redirect(url_for('todo'))
 
 
 @app.post('/delete_all')
 def delete_all():
-    collection.drop()
-    print("the list was deleted")
+    # collection.drop()
+    delete_collection()
+    print("The list was deleted by the user")
     return redirect(url_for('todo'))
-
-
-@app.route('/calendar', methods=('GET', 'POST'))
-def calendar():
-    return render_template("calendar.html")
-
-
-@app.route('/calendar2', methods=('GET', 'POST'))
-def calendar_list():
-    return render_template("calendar2.html")
 
 
 @app.route('/contact')
@@ -106,7 +79,7 @@ def get_info(id):
     socket = context.socket(zmq.REQ)
     socket.connect("tcp://localhost:5555")
 
-    data = collection.find_one({"_id": ObjectId(id)})
+    data = get_item_by_id(id)
     print(f"find the data - {data}")
     print(f"this is the place - {data['place']}")
 
@@ -198,17 +171,16 @@ def generate_csv():
     socket = context.socket(zmq.REQ)
     socket.connect("tcp://localhost:5558")
 
-    data = []
-    for file in collection.find({}):
-        data.append(file)
-    socket.send_pyobj(data)
+    data = get_all_items()
 
+    socket.send_pyobj(data)
     info = socket.recv_pyobj()
+
     with open('wishlist.csv', 'w') as csv_file:
         # csv_file.write(info)
-        for l in info:
-            csv_file.write(l)
-            if l == "}":
+        for line in info:
+            csv_file.write(line)
+            if line == "}":
                 csv_file.write('\n')
 
     print(f"The file was received - {info}")
@@ -217,4 +189,4 @@ def generate_csv():
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 45678))
-    app.run(port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
