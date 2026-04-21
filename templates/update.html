@@ -5,30 +5,28 @@
     <h2>Update Place/Activity from your list</h2>
 
     <article class="article-list">
-        
         <form class="form" method="POST">
-            
-                <br><span style="color: red;">*</span> is required field.</form>
+                <br><span style="color: red;">*</span> is required field.
                 <!-- <form id="addPlace" method="POST" action="/todo-add"> -->
+
                 <table>
                     <tbody>
                         <tr>
                             <td><label for="place"  class="required">Place/Activity:</label></td>
-                            <td><input type="text" id="place" name="place"  ></td>
+                            <td><input type="text" id="place" name="place" value="{{ item.place }}" required></td>
                         </tr>
                         <tr>
                             <td><label for="info">Additional Information:</label></td>
-                            <td><input type="text" id="info" name="info"  ></td>
+                            <td><input type="text" id="info" name="info" value="{{ item.info }}"></td>
                         </tr>             
                     </tbody>
                 </table>
+                <div class="position">
+                    <input class="btn" type="submit" name="Add_Place" value="&#11157 Submit">
+                    <input class="btn" type="button" name ="Cancel" value="&#8855 Cancel" onclick="location.href='/todo';">
+                </div>
+        </form>
     </article>
-    
-        <div class="position">
-            <input class="btn" type="submit" name="Add_Place" value="&#11157 Submit">
-            <input class="btn" type="button" name ="Cancel" value="&#8855 Cancel" onclick="location.href='/todo';">
-        </div>
-        </form>   
 </section>
 
 {% endblock %}
