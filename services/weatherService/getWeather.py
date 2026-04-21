@@ -1,5 +1,4 @@
 import zmq 
-import time 
 import requests
 from datetime import datetime
 import os
@@ -11,9 +10,10 @@ api_key = os.getenv("WEATHERBIT_API_KEY")
 #set zeroMQ
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind("tcp://localhost:5559")
+port = os.getenv("WEATHER_SERVICE_PORT", "5559")
+socket.bind(f"tcp://0.0.0.0:{port}")
 
-print("Weather microservice is now listening on port 5559...")
+print(f"Weather microservice is now listening on port {port}...")
 
 while True:
     # Receive city name from the Flask Hub
