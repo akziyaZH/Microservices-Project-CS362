@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    ports:
+      - "${APP_PORT:-45678}:45678"
+    env_file:
+      - .env
+    environment:
+      - DB_URI=${MONGO_URI}
+  wiki-service:
+    build: ./services/wikiService/
+    ports:
+      - "${WIKI_SERVICE_PORT}:${WIKI_SERVICE_PORT}"
+    env_file:
+      - .env
+  csv-service:
+    build: ./services/csvService/
+    ports:
+      - "${CSV_SERVICE_PORT}:${CSV_SERVICE_PORT}"
+    env_file:
+      - .env
+  location-service:
+    build: ./services/locationService
+    ports:
+      - "${LOCATION_SERVICE_PORT}:${LOCATION_SERVICE_PORT}"
+    env_file:
+      - .env
+  weather-service:
+    build: ./services/weatherService
+    ports:
+      - "${WEATHER_SERVICE_PORT}:${WEATHER_SERVICE_PORT}"
+    env_file:
+      - .env
