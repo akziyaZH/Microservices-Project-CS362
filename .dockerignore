@@ -1,0 +1,23 @@
+# Environment secret
+.env
+
+# Python Bytecode
+*.pyc
+__pycache__
+
+# Local Files
+wishlist.csv
+
+# Virtual Environment
+.venv
+venv/
+
+# Version Control
+.git
+.gitignore
+.gitattributes
+
+# IDE & OS Metadata
+.idea/
+.vscode/
+.DS_Store
