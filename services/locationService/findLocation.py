@@ -1,13 +1,19 @@
+import os
+
 import zmq
 import time 
 from geopy.geocoders import Nominatim
+from dotenv import load_dotenv
+
+load_dotenv()
 
 #set zeroMQ
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind("tcp://localhost:5556")
+port = os.getenv("LOCATION_SERVICE_PORT", "5556")
+socket.bind(f"tcp://0.0.0.0:{port}")
 
-print("Location microservice is now listening on port 5556...")
+print(f"Location microservice is now listening on port {port}...")
 
 while True:
     time.sleep(1)
