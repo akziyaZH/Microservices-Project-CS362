@@ -1,10 +1,13 @@
 from flask import Flask, render_template, redirect, request, url_for, send_file
 import os
+from dotenv import load_dotenv
 from database import get_all_items, add_item, delete_item, delete_collection, update_item, get_item_by_id
 import zmq
 import time
 
 app = Flask(__name__)
+
+load_dotenv()
 
 
 @app.route('/')
@@ -77,7 +80,7 @@ def get_info(id):
     # set up zeroMQ
     context = zmq.Context()
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5555")
+    socket.connect(f"tcp://wiki-service:{os.getenv('WIKI_SERVICE_PORT')}")
 
     data = get_item_by_id(id)
     print(f"find the data - {data}")
@@ -121,7 +124,7 @@ def info():
 def get_weather():
     context = zmq.Context()
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5559")
+    socket.connect(f"tcp://weather-service:{os.getenv('WEATHER_SERVICE_PORT')}")
     if request.method == 'POST':
         city = request.form['weather']
         place = "Please enter a place to find the address"
@@ -143,7 +146,7 @@ def get_weather():
 def location():
     context = zmq.Context()
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5556")
+    socket.connect(f"tcp://location-service:{os.getenv('LOCATION_SERVICE_PORT')}")
     if request.method == 'POST':
         place = request.form['address']
         weather = "Please enter a city to get weather information"
@@ -169,7 +172,7 @@ def location():
 def generate_csv():
     context = zmq.Context()
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5558")
+    socket.connect(f"tcp://csv-service:{os.getenv('CSV_SERVICE_PORT')}")
 
     data = get_all_items()
 
@@ -188,5 +191,5 @@ def generate_csv():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 45678))
+    port = int(os.environ.get('PORT', os.getenv("APP_PORT")))
     app.run(host='0.0.0.0', port=port, debug=True)

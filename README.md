@@ -35,28 +35,37 @@ The system is divided into a **Hub** and several **Spokes** to ensure scalabilit
 1. **Clone the repo:**
    ```bash
    git clone git@github.com:akziyaZH/Microservices-Project-CS362.git
+   cd Microservices-Project-CS362
    ```
-2. **Install dependencies:**
+2. **Configure Environment Variables**
     ```
-    pip install -r requirements.txt
-    ```
-3. **Configure Environment:**
+    # Database
+    MONGO_URI=your_mongodb_atlas_uri
     
-    Create a .env file with your MONGO_URI and WEATHERBIT_API_KEY
+    # API Keys
+    WEATHERBIT_API_KEY=your_weatherbit_key
+    
+    # Service Ports
+    APP_PORT=45678
+   WIKI_SERVICE_PORT=5555
+    LOCATION_SERVICE_PORT=5556
+    CSV_SERVICE_PORT=5558
+    WEATHER_SERVICE_PORT=5559
+    ```
 
 ## How to Run
 
-To run the full system, start the services first, then the app:
+The entire system is containerized. You do not need to install Python or dependencies locally if you have Docker installed.
 
+**Start the System**
 ```
-# Start all microservices
-python services/getWeather.py
-python services/csv_convert.py
-python services/findLocation.py
-python services/informationLink.py
+docker-compose up --build
+```
+*The application will be accessible at http://localhost:45678*
 
-# Start the main application
-python app.py
+**Stop the System**
+```
+docker-compose down
 ```
 
 ## Project Gallery
