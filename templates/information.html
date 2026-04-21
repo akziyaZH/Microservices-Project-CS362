@@ -27,25 +27,26 @@
 
     <article class="article-list">
         <h3>Get Weather</h3>
-            <form  id="getWeather" method="POST" action="/weather">
+            <form  id="getWeather" method="POST" action="/weather#results">
                 <label for="weather" class="required">Name of a City</label>
                 <input type="text" id="weather" name="weather" required>
                 <div class="position2">
                     <input class="btn" type="submit" name="Get_Weather_Forecast" value="&#11157 Weather Forecast">
                 </div>
-                <div class="position3">
+                <div class="position3" id="results">
                 <h4>Weather information:</h4>
-                    <p>               
-                    {% for weather in weathers.splitlines() %}
-                    <p>
-                       {{ weather }}
-                    </p>
-                    {% endfor %}
-                    </p>
+                    <div class="weather-output">
+                        {% for weather in weathers.splitlines() %}
+                            <p>{{ weather }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </form>
     </article>
 
+
+
 </section>
 
 {% endblock %}
+
