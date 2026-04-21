@@ -1,16 +1,20 @@
+import os
 import zmq
 import time 
 import csv
 from operator import itemgetter
+from dotenv import load_dotenv
 
+load_dotenv()
 
 #set zeroMQ
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 sender = context.socket(zmq.PUB)
-socket.bind("tcp://localhost:5558")
+port = os.getenv("CSV_SERVICE_PORT", "5558")
+socket.bind(f"tcp://0.0.0.0:{port}")
 
-print("CSV generator microservice is now listening on port 5558...")
+print(f"CSV generator microservice is now listening on port {port}...")
 
 while True:
     time.sleep(1)
