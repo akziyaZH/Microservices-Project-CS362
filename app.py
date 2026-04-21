@@ -50,7 +50,7 @@ def update(id):
         data2 = get_item_by_id(id)
         print(f"updated data is {data2}")
         return redirect(url_for('todo'))
-    return render_template('update.html')
+    return render_template('update.html', item=data)
 
 
 @app.post('/<id>/delete/')
